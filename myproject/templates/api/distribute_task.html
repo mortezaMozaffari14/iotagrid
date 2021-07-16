@@ -1,0 +1,48 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">IOTA-Based Distributed Computing</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <a href="{% url 'api:distribute_task' %}"  class="list-group-item list-group-item-action">Distribute Problem</a>
+            <a href="{% url 'api:distribute_task' %}" class="list-group-item list-group-item-action">Private Network Info</a>
+            <a href="#" class="list-group-item list-group-item-action">Others</a>
+            <a href="#" class="list-group-item list-group-item-action">Others</a>
+            <a href="#" class="list-group-item list-group-item-action">Others</a>
+            <a href="#" class="list-group-item list-group-item-action">Others</a>
+            <a href="#" class="list-group-item list-group-item-action">Others</a>
+          </ul>
+        </div>
+    </div>
+<div class="col-md-5">
+    <div class="card card-outline-secondary">
+        <div class="card-header bg-warning">
+            <h3 class="mb-2" style="margin-left:20%">Please insert inputs </h3>
+        </div>
+        <div class="card-body">
+            <form   action=""class="form" method="POST" role="form" autocomplete="off" novalidate>
+                {% csrf_token %}
+                <div class="form-group" style = "margin-left:20%">
+                    in_1: {{ form.input_1 }}
+                    
+                </div>
+                </br>
+                <div class="form-group" style = "margin-left:20%">
+                    in_2: {{ form.input_2 }}
+                </div>
+                </br>
+                <button  type="submit" class="btn btn-warning btn-sm" style="margin-left:45%">submit</button>
+				
+            </form>
+                     
+        </div>
+	</div>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+{% endblock %}
+

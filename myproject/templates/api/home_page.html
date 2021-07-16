@@ -1,0 +1,35 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load i18n %}
+<!doctype html>
+
+{% block content %}
+<div class="row">
+<div class="col-md-4">
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title">IOTA-Based Distributed Computing</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    <a href="{% url 'api:distribute_task' %}" style= "width 30%" class="list-group-item list-group-item-action">Distribute task</a>
+    <a href="#" style= "width 30%" class="list-group-item list-group-item-action">Private network info</a>
+    <a href="#" class="list-group-item list-group-item-action">Create new task</a>
+    <a href="#" class="list-group-item list-group-item-action">All tasks</a>
+    
+  </ul>
+</div>
+</div>
+  <div class="col-md-8">
+  <p>Iotagrid is iota-based distributed computing system that compute complex task by distributing 
+  it in the peer to peet network. First application of the system is computing f(x,y) = x^2 + y^2. We will add more tasks in 
+  the future. In this task user insert its two inputs and then system distribute inputs amoung iota nodes. When nodes calculate their outputs, they sended it to the 
+  network. Finally, first node calculate the final answer. 
+  </p>
+  </div>
+
+</div>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+{% endblock %}
+
+   
+

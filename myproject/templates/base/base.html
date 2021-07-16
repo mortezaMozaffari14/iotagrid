@@ -1,0 +1,24 @@
+{% load static %}
+{% load i18n %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+</head>
+{% block header%}
+    {% include '../includes/header.html' %}
+{% endblock %}
+</head>
+  <body style="font-family: Yekan">
+{% block content %}{% endblock %}
+{% block footer%}
+    {% include '../includes/footer.html' %}
+{% endblock %}
+
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load i18n %}
+<!doctype html>
+
+ 
+{% block content %}
+<div class ="row">
+<div class="col-4">
+<div class="card">
+          <div class="card-header">
+            <h5 class="card-title">IOTA-Based Distributed Computing</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <a href="{% url 'api:distribute_task' %}"  class="list-group-item list-group-item-action">Distribute Problem</a>
+            <a href="{% url 'api:distribute_task' %}" class="list-group-item list-group-item-action">Private Network Info</a>
+            <a href="#" class="list-group-item list-group-item-action">Others</a>
+            <a href="#" class="list-group-item list-group-item-action">Others</a>
+            <a href="#" class="list-group-item list-group-item-action">Others</a>
+            <a href="#" class="list-group-item list-group-item-action">Others</a>
+            <a href="#" class="list-group-item list-group-item-action">Others</a>
+          </ul>
+        </div>
+        </div>
+  <div class ="col-6">
+  <div class="card">
+  {% comment %} <div class="container justify-content-center">
+  <div class="row table-responsive"> {% endcomment %}
+  <div  class = "card-header bg-warning">
+  <h5 style ="margin-left:31%;" class="card-title">Answer detail</h5>
+  </div>
+  <div class= "card-body">
+<table style ="width:100%;" class=" table table-responsiv table-bordered  justify-content table-hover table-striped">
+                <thead class="thead-ligh thead-dark" >
+                    <th>node</th>
+                    <th>input </th>
+                    <th>output </th>
+                  </thead>
+                <tbody class="table-hover" >
+                    {% for out in outs %}
+                            <tr>
+                                <td >{{out.node}}</td>
+                                <td>{{out.input}}</td>
+                                {% if out.output  %}
+                                 <td >{{out.output}}</td> 
+                                {%else%}
+                                <td>not computed yet</td>
+                                {%endif%}
+                            </tr>
+                       
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+                <div class="card-footer bg-warning">
+                <h5 style="margin-left:30%">The final answer is: <code> {{final}} </code></h5>
+                </div>
+</div>
+</div>
+{% comment %} </div>
+</div> {% endcomment %}
+</div>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+{% endblock %}
