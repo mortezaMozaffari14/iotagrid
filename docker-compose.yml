@@ -1,0 +1,143 @@
+version: "3"
+
+networks:
+  tangle:
+    name: private-tangle
+
+services:
+  coo:
+    hostname: coo
+    # network_mode: host
+    networks:
+      - tangle
+    image: gohornet/hornet
+#    restart: always
+    container_name: coo
+    environment:
+      COO_SEED
+    expose:
+      - 15600
+    volumes:
+      - one-click-tangle/hornet-private-net/config/config-coo.json:/app/config.json:ro
+      - one-click-tangle/hornet-private-net/config/profiles.json:/app/profiles.json:ro
+      - one-click-tangle/hornet-private-net/config/peering-coo.json:/app/peering.json:ro
+      - one-click-tangle/hornet-private-net/db/private-tangle:/app/db
+      - one-click-tangle/hornet-private-net/snapshots:/app/snapshots
+  
+  node:
+    hostname: node1
+    # network_mode: host
+    networks:
+      - tangle
+    image: gohornet/hornet
+#    restart: always
+    container_name: node1
+    environment:
+      COO_SEED
+    expose:
+      - 14265
+      - 15600
+      - 5556
+    ports:
+      - "14265:14265"
+      - "15600:15600"
+      - "8081:8081"
+      - "5556:5556"
+    volumes:
+      - one-click-tangle/hornet-private-net/config/config-node.json:/app/config.json:ro
+      - one-click-tangle/hornet-private-net/config/profiles.json:/app/profiles.json
+      - one-click-tangle/hornet-private-net/config/peering-node.json:/app/peering.json
+      - one-click-tangle/hornet-private-net/db/private-tangle:/app/db
+      - one-click-tangle/hornet-private-net/snapshots:/app/snapshots
+  
+
+
+  nginx:
+      # network_mode: host
+      networks:
+        - tangle
+      image: nginx
+      container_name: nginx
+      expose: 
+        - 80
+      ports:
+        - 9000:80
+      volumes: 
+        - one-click-tangle/hornet-private-net/logs:/usr/share/nginx/html
+
+  address-generator:
+    networks:
+      - tangle
+    image: node:12
+    container_name: address-generator
+    environment: 
+      NPM_CONFIG_LOGLEVEL: silent
+      NODE_PATH: /package/node_modules
+    volumes:
+      - one-click-tangle/hornet-private-net/utils:/usr/src/app
+  secnode:
+    hostname: node2
+    # network_mode: host
+    networks:
+      - tangle
+    image: gohornet/hornet
+  #     restart: always
+    container_name: node2
+    environment:
+      COO_SEED
+    expose:
+      - 14268
+      - 15600
+      - 5558
+    ports:
+      - "14268:14268"
+      - "8088:8088"
+      - "5558:5558"
+    volumes:
+      - one-click-tangle/hornet-private-net/config/config-secnode.json:/app/config.json:ro
+      - one-click-tangle/hornet-private-net/config/profiles.json:/app/profiles.json
+      - one-click-tangle/hornet-private-net/config/peering-secnode.json:/app/peering.json
+      - one-click-tangle/hornet-private-net/db/private-tangle:/app/db
+      - one-click-tangle/hornet-private-net/snapshots:/app/snapshots
+  thirdnode:
+    hostname: node3
+    # network_mode: host
+    networks:
+      - tangle
+    image: gohornet/hornet
+  #     restart: always
+    container_name: node3
+    environment:
+      COO_SEED
+    expose:
+      - 14267
+      - 15600
+      - 5557
+    ports:
+      - "14267:14267"
+      - "8087:8087"
+      - "5557:5557"
+    volumes:
+      - one-click-tangle/hornet-private-net/config/config-thirdnode.json:/app/config.json:ro
+      - one-click-tangle/hornet-private-net/config/profiles.json:/app/profiles.json
+      - one-click-tangle/hornet-private-net/config/peering-thirdnode.json:/app/peering.json
+      - one-click-tangle/hornet-private-net/db/private-tangle:/app/db
+      - one-click-tangle/hornet-private-net/snapshots:/app/snapshots
+
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  web:
+    build: .
+    command:python manage.py crontab add --setting=config.settings.local & python manage.py runserver ----setting=config.settings.local 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
