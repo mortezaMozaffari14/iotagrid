@@ -1,0 +1,79 @@
+{
+  "db": {
+    "path": "/app/db/coo.db"
+  },
+  "useProfile": "auto",
+  "httpAPI": {
+    "basicAuth": {
+      "enabled": false,
+      "username": "",
+      "passwordHash": "",
+      "passwordSalt": ""
+    },
+    "excludeHealthCheckFromAuth": false,
+    "permitRemoteAccess": [
+      "getNodeInfo",
+      "getBalances",
+      "checkConsistency",
+      "getTipInfo",
+      "getTransactionsToApprove",
+      "getInclusionStates",
+      "getNodeAPIConfiguration",
+      "wereAddressesSpentFrom",
+      "broadcastTransactions",
+      "findTransactions",
+      "storeTransactions",
+      "getTrytes"
+    ],
+    "whitelistedAddresses": [],
+    "bindAddress": "0.0.0.0:14265",
+    "limits": {
+      "bodyLengthBytes": 1000000,
+      "findTransactions": 1000,
+      "getTrytes": 1000,
+      "requestsList": 1000
+    }
+  },
+  "snapshots": {
+    "loadType": "global",
+    "local": {
+      "path": "/app/snapshots/private-tangle/export-coo.bin"
+    },
+    "global": {
+        "path": "/app/snapshots/private-tangle/snapshot.csv",
+        "spentAddressesPaths": [],
+        "index": 0
+    }
+  },
+  "spentAddresses": {
+    "enabled": true
+  },
+  "network": {
+    "preferIPv6": false,
+    "gossip": {
+      "bindAddress": "0.0.0.0:15600",
+      "reconnectAttemptIntervalSeconds": 60
+    }
+  },
+  "node": {
+    "alias": "coo",
+    "showAliasInGetNodeInfo": true,
+    "disablePlugins": [
+      "Autopeering", "URTS", "WarpSync",
+      "Spammer",
+      "ZMQ", "MQTT", 
+      "Dashboard", "Prometheus", "Profiling"
+    ],
+    "enablePlugins": ["Coordinator", "WebAPI"]
+  },
+  "coordinator": {
+    "address": "FWOFVDYGTM9FIWODSKJEVSPRHYMUG9ACUJGRRQRDFZFV9OPMTDEIEKOYUUJFZNBYZFREYXTBTKIIHWLVD",
+    "securityLevel": 2,
+    "merkleTreeDepth": 16,
+    "mwm": 9,
+    "stateFilePath": "/app/db/coordinator.state",
+    "merkleTreeFilePath": "/app/db/coordinator.tree",
+    "intervalSeconds": 60,
+    "checkpointTransactions": 5
+  }
+}

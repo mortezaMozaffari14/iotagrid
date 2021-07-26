@@ -1,0 +1,12 @@
+{
+    "acceptAnyConnection": false,
+    "maxPeers": 5,
+    "peers": [
+      {
+        "identity": "node1:15600",
+        "alias": "node1",
+        "preferIPv6": false
+      }
+     
+    ]
+  }

@@ -1,0 +1,95 @@
+{
+    "db": {
+      "path": "/app/db/secnode.db"
+    },
+    "useProfile": "auto",
+    "httpAPI": {
+      "basicAuth": {
+        "enabled": false,
+        "username": "",
+        "passwordHash": "",
+        "passwordSalt": ""
+      },
+      "excludeHealthCheckFromAuth": false,
+      "permitRemoteAccess": [
+        "interruptAttachToTangle",
+        "addNeighbors",
+        "removeNeighbors",
+        "getNeighbors",
+        "attachToTangle",
+        "getNodeInfo",
+        "getBalances",
+        "checkConsistency",
+        "getTipInfo",
+        "getTransactionsToApprove",
+        "getInclusionStates",
+        "getNodeAPIConfiguration",
+        "wereAddressesSpentFrom",
+        "broadcastTransactions",
+        "findTransactions",
+        "storeTransactions",
+        "getTrytes",
+        "createSnapshotFile"
+      ],
+      "whitelistedAddresses": [],
+      "bindAddress": "0.0.0.0:14268",
+      "limits": {
+        "bodyLengthBytes": 1000000,
+        "findTransactions": 1000,
+        "getTrytes": 1000,
+        "requestsList": 1000
+      }
+    },
+    "dashboard": {
+      "bindAddress": "0.0.0.0:8088",
+      "theme": "default",
+      "basicAuth": {
+        "enabled": false,
+        "username": "",
+        "passwordHash": "",
+        "passwordSalt": ""
+      }
+    },
+    "snapshots": {
+      "loadType": "global",
+      "local": {
+        "path": "/app/snapshots/private-tangle/export-secnode.bin"
+      },
+      "global": {
+          "path": "/app/snapshots/private-tangle/snapshot.csv",
+          "spentAddressesPaths": [],
+          "index": 0
+      }
+    },
+    "spentAddresses": {
+      "enabled": true
+    },
+    "network": {
+      "preferIPv6": false,
+      "gossip": {
+        "bindAddress": "0.0.0.0:15600",
+        "reconnectAttemptIntervalSeconds": 60
+      }
+    },
+    "node": {
+      "alias": "node2",
+      "showAliasInGetNodeInfo": false,
+      "disablePlugins": [
+        "Autopeering", "WarpSync",
+        "Profiling", "Prometheus", 
+        "MQTT", 
+        "Spammer",  "Coordinator"
+      ],
+      "enablePlugins": ["URTS", "WebAPI", "ZMQ"]
+    },
+    "zmq": {
+      "bindAddress": "0.0.0.0:5558"
+    },
+    "coordinator": {
+      "address": "FWOFVDYGTM9FIWODSKJEVSPRHYMUG9ACUJGRRQRDFZFV9OPMTDEIEKOYUUJFZNBYZFREYXTBTKIIHWLVD",
+      "securityLevel": 2,
+      "merkleTreeDepth": 16,
+      "mwm": 9
+    }
+  }
+  
