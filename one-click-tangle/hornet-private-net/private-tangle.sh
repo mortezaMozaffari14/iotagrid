@@ -134,10 +134,15 @@ startTangle () {
   docker-compose --log-level ERROR up -d coo
 
   # Run the spammer
-  docker-compose --log-level ERROR up -d spammer
+  #docker-compose --log-level ERROR up -d spammer
 
   # Run a regular node 
   docker-compose --log-level ERROR up -d node
+  # Run another nodes and django server
+  docker-compose --log-level ERROR up -d secondnode
+  docker-compose --log-level ERROR up -d thirdnode
+  docker-compose --log-level ERROR up -d db
+  docker-compose --log-level ERROR up -d web
 }
 
 generateMerkleTree () {
