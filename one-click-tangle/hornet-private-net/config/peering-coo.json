@@ -6,11 +6,7 @@
       "identity": "node1:15600",
       "alias": "node1",
       "preferIPv6": false
-    },
-    {
-      "identity": "spammer:15600",
-      "alias": "spammer",
-      "preferIPv6": false
     }
+   
   ]
 }

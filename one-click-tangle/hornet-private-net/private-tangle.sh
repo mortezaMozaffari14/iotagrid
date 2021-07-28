@@ -139,7 +139,7 @@ startTangle () {
   # Run a regular node 
   docker-compose --log-level ERROR up -d node
   # Run another nodes and django server
-  docker-compose --log-level ERROR up -d secondnode
+  docker-compose --log-level ERROR up -d secnode
   docker-compose --log-level ERROR up -d thirdnode
   docker-compose --log-level ERROR up -d db
   docker-compose --log-level ERROR up -d web
@@ -160,7 +160,8 @@ generateMerkleTree () {
   sed -i 's/"merkleTreeDepth": [[:digit:]]\+/"merkleTreeDepth": '$MERKLE_TREE_DEPTH'/g' config/config-coo.json
   # Tree Depth has to be copied to the different nodes of the network
   sed -i 's/"merkleTreeDepth": [[:digit:]]\+/"merkleTreeDepth": '$MERKLE_TREE_DEPTH'/g' config/config-node.json
-  sed -i 's/"merkleTreeDepth": [[:digit:]]\+/"merkleTreeDepth": '$MERKLE_TREE_DEPTH'/g' config/config-spammer.json
+  sed -i 's/"merkleTreeDepth": [[:digit:]]\+/"merkleTreeDepth": '$MERKLE_TREE_DEPTH'/g' config/config-secnode.json
+  sed -i 's/"merkleTreeDepth": [[:digit:]]\+/"merkleTreeDepth": '$MERKLE_TREE_DEPTH'/g' config/config-thirdnode.json
 
   # Running NGINX Server that will allow us to check the logs
   docker-compose --log-level ERROR up -d nginx
@@ -184,7 +185,7 @@ generateMerkleTree () {
       echo "Error while generating Merkle Tree. Please check logs and permissions"
       exit 127
   fi
-
+  echo "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"
   MERKLE_TREE_ADDR=$(cat "$MERKLE_TREE_LOG_FILE" | grep "Merkle tree root"  \
   | cut  -d ":" -f 2 - | sed "s/ //g" | tr -d "\n" | tr -d "\r")
 
@@ -201,7 +202,8 @@ setupCoordinator () {
 
   sed -i 's/"address": \("\).*\("\)/"address": \1'$MERKLE_TREE_ADDR'\2/g' config/config-node.json
 
-  sed -i '0,/"address"/s/"address": \("\).*\("\)/"address": \1'$MERKLE_TREE_ADDR'\2/' config/config-spammer.json
+  sed -i '0,/"address"/s/"address": \("\).*\("\)/"address": \1'$MERKLE_TREE_ADDR'\2/' config/config-secnode.json
+  sed -i '0,/"address"/s/"address": \("\).*\("\)/"address": \1'$MERKLE_TREE_ADDR'\2/' config/config-thirdnode.json
 
   echo "Bootstrapping the Coordinator..."
   # Bootstrap the coordinator
@@ -237,7 +239,8 @@ generateInitialAddress () {
   echo "Generating an initial IOTA address holding all IOTAs..."
 
   local seed=$(generateSeed)
-  echo $seed > ./utils/node.seed 
+  #> utils/node.seed
+  echo $seed > utils/node.seed 
 
   # Now we run a tiny Node.js utility to get the first address to be on the snapshot
   docker-compose run --rm -w /usr/src/app address-generator sh -c 'npm install --prefix=/package "@iota/core" > /dev/null && node address-generator.js $(cat node.seed) 2> /dev/null > address.txt'
