@@ -58,9 +58,9 @@ MIDDLEWARE = [
 CRONTAB_LOCK_JOBS = True
 ROOT_URLCONF = 'config.urls'
 CRONJOBS = [
-    ('* * * * *', 'myproject.api.live_transactions.second_node_socket','>> /home/socket_log.log'),
-    ('* * * * *', 'myproject.api.live_transactions.first_node_socket','>> /home/sockett_log.log'),
-    ('* * * * *', 'myproject.api.live_transactions.third_node_socket','>> /home/sockettt_log.log')
+    ('* * * * *', 'myproject.api.live_transactions.second_node_socket'),
+    ('* * * * *', 'myproject.api.live_transactions.first_node_socket'),
+    ('* * * * *', 'myproject.api.live_transactions.third_node_socket')
 ]
 TEMPLATES = [
     {

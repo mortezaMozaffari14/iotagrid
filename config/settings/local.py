@@ -5,10 +5,10 @@ from .base import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'iotadb',
-        'PASSWORD':'iotapass',
-        'USER':'iotauser',
-        'HOST':'localhost',
-        'PORT':5432,
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
