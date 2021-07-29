@@ -131,7 +131,7 @@ startTangle () {
   echo '</p></body></html>' >> $MERKLE_TREE_LOG_FILE
 
   # Run the coordinator
-  docker-compose --log-level ERROR up -d coo
+  docker-compose --env-file ./.env.dev --log-level ERROR up -d coo
 
   # Run the spammer
   #docker-compose --log-level ERROR up -d spammer
@@ -150,7 +150,9 @@ generateMerkleTree () {
 
   # We ensure last trit is 0
   export COO_SEED=$(generateSeed)
-  echo $COO_SEED > coordinator.seed 
+  echo $COO_SEED > coordinator.seed
+  echo COO_SEED=$COO_SEED > .env.dev 
+  
 
   echo "Done. Check coordinator.seed"
   
@@ -185,7 +187,6 @@ generateMerkleTree () {
       echo "Error while generating Merkle Tree. Please check logs and permissions"
       exit 127
   fi
-  echo "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"
   MERKLE_TREE_ADDR=$(cat "$MERKLE_TREE_LOG_FILE" | grep "Merkle tree root"  \
   | cut  -d ":" -f 2 - | sed "s/ //g" | tr -d "\n" | tr -d "\r")
 
