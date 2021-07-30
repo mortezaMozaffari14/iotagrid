@@ -131,7 +131,7 @@ startTangle () {
   echo '</p></body></html>' >> $MERKLE_TREE_LOG_FILE
 
   # Run the coordinator
-  docker-compose --env-file ./.env.dev --log-level ERROR up -d coo
+  docker-compose --env-file ./.env.dev --log-level ERROR up coo
 
   # Run the spammer
   #docker-compose --log-level ERROR up -d spammer
@@ -139,10 +139,10 @@ startTangle () {
   # Run a regular node 
   docker-compose --log-level ERROR up -d node
   # Run another nodes and django server
-  docker-compose --log-level ERROR up -d secnode
-  docker-compose --log-level ERROR up -d thirdnode
-  docker-compose --log-level ERROR up -d db
-  docker-compose --log-level ERROR up -d web
+  docker-compose --log-level ERROR up secnode
+  docker-compose --log-level ERROR up thirdnode
+  docker-compose --log-level ERROR up db
+  docker-compose --log-level ERROR up web
 }
 
 generateMerkleTree () {
@@ -166,7 +166,7 @@ generateMerkleTree () {
   sed -i 's/"merkleTreeDepth": [[:digit:]]\+/"merkleTreeDepth": '$MERKLE_TREE_DEPTH'/g' config/config-thirdnode.json
 
   # Running NGINX Server that will allow us to check the logs
-  docker-compose --log-level ERROR up -d nginx
+  #docker-compose --log-level ERROR up -d nginx
 
   if [ $? -eq 0 ]; 
     then

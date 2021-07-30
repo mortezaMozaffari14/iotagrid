@@ -19,18 +19,23 @@ Now start private tangle with  Merkle Tree of Depth 16 by:
 ./private-tangle.sh start 16 30
 
 ```
+Since above command computes Merkle Tree, that takes some minutes to be built. 
+
 Now all services(all iota nodes, django server and postgress) are running in the docker containers. To see these services:
 
 ```
 docker ps -a
 
 ```
-If you want to stop all service just press *** Ctrl + C ***	
+
+If you want to stop iotagird just press 
+** Ctrl + C ** 
 
 when you want to start iotagrid for second time:
 
 ```
-docker-compose up
+cd iotagrid/one-click-tangle/hornet-private-net
+docker-compose --env-file ./.env up
 
 ```
 Now browse: 127.0.0.1:8000/
