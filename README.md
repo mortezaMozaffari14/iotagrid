@@ -1,6 +1,6 @@
 # Iotagrid
 Iotagrid is the IOTA-based distributed computing platform where a task is distributed among IOTA nodes. These nodes are running in the Docker container.
-## Set up private tangle and django web application
+## Set up private tangle and django web application on ubuntu
 In order to set up the private tangle and run django server, you need to clone iotagrid repository:
 
 ```
