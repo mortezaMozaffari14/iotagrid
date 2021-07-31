@@ -124,6 +124,8 @@ services:
       - ./snapshots:/app/snapshots
 
   db:
+    networks:
+      - tangle
     image: postgres
     container_name: db
     volumes:
@@ -133,11 +135,15 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
   web:
+    networks:
+      - tangle
     build: .
     command : bash -c 
               "
-              python manage.py migrate --setting=config.settings.local 
-              && python manage.py makemigrations --setting=config.settings.local 
+              python manage.py makemigrations --setting=config.settings.local
+              && python manage.py migrate --setting=config.settings.local 
+              && python manage.py loaddata nodes.json --setting=config.settings.local
+              && service cron start
               && python manage.py crontab add --setting=config.settings.local
               && python manage.py crontab show --setting=config.settings.local 
               && python manage.py runserver --setting=config.settings.local 0.0.0.0:8000

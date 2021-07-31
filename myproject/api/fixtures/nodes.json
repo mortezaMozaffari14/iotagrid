@@ -1,0 +1,37 @@
+[
+  {
+    "model": "api.nodes",
+    "pk": 1,
+    "fields": {
+      "name": "node1",
+      "type": "IOTA base node"
+    }
+  },
+  {
+    "model": "api.nodes",
+    "pk": 2,
+    "fields": {
+      "name": "node2",
+      "type": "IOTA node"
+    }
+  },
+  {
+    "model": "api.nodes",
+    "pk": 3,
+    "fields": {
+      "name": "node3",
+      "type": "IOTA node"
+    }
+  },
+  { "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "username": "admin",
+        "password": "pbkdf2_sha256$10000$vkRy7QauoLLj$ry+3xm3YX+YrSXbri8s3EcXDIrx5ceM+xQjtpLdw2oE=",
+        "is_superuser": true,
+        "is_staff": true,
+        "is_active": true
+    }
+}
+
+]

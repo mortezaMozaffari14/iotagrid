@@ -131,7 +131,7 @@ startTangle () {
   echo '</p></body></html>' >> $MERKLE_TREE_LOG_FILE
 
   # Run the coordinator
-  docker-compose --env-file ./.env.dev --log-level ERROR up coo
+  docker-compose --env-file ./.env --log-level ERROR up -d coo
 
   # Run the spammer
   #docker-compose --log-level ERROR up -d spammer
@@ -139,10 +139,10 @@ startTangle () {
   # Run a regular node 
   docker-compose --log-level ERROR up -d node
   # Run another nodes and django server
-  docker-compose --log-level ERROR up secnode
-  docker-compose --log-level ERROR up thirdnode
-  docker-compose --log-level ERROR up db
-  docker-compose --log-level ERROR up web
+  docker-compose --log-level ERROR up -d secnode
+  docker-compose --log-level ERROR up -d thirdnode
+  docker-compose --log-level ERROR up -d db
+  docker-compose --log-level ERROR up -d web
 }
 
 generateMerkleTree () {
@@ -151,7 +151,7 @@ generateMerkleTree () {
   # We ensure last trit is 0
   export COO_SEED=$(generateSeed)
   echo $COO_SEED > coordinator.seed
-  echo COO_SEED=$COO_SEED > .env.dev 
+  echo COO_SEED=$COO_SEED > .env
   
 
   echo "Done. Check coordinator.seed"
@@ -257,6 +257,11 @@ stopContainers () {
   echo "Stopping containers..."
 	docker-compose --log-level ERROR down -v --remove-orphans
 }
+stopContainers2 () {
+  echo "Stopping containers..."
+	docker-compose --log-level ERROR stop
+}
+
 
 # TODO: start, stop, remove, resume
 case "${command}" in
@@ -267,7 +272,7 @@ case "${command}" in
     startTangle
     ;;
   "stop")
-		stopContainers
+		stopContainers2
 		;;
   *)
 		echo "Command not Found."
