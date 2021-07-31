@@ -27,8 +27,10 @@ Now all services(all iota nodes, django server, and postgress) are running in th
 docker ps -a
 
 ```
-you should see all containers in the compose file
+you should see all containers in the compose file.
+
 Now browse: 127.0.0.1:8000/
+
 All containers are running in the backend and if  you want to stop Iotagird:
 
 ```
